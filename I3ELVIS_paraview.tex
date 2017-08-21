@@ -1,0 +1,22 @@
+% chapter: usage of paraview
+
+\section{Usage of paraview}
+
+\subsection{Conversion from raw output to Paraview files}
+prn2vtr
+
+\subsection{Visualisation with Paraview}
+
+\subsubsection{Visualize composition}
+
+Use the following pipeline:
+\begin{enumerate}[-]
+\item Threshold filter:\\
+set upper and lower threshold to the same composition number. Don't set the 'All Scalars' option.
+
+\item Contour filter:\\
+Contour by composition. Choose x.001 as value for the isosurface.
+
+\item GenerateSurfaceNormals filter:\\
+This generates a polygonal mesh, which has a smoothing effect.
+\end{enumerate}

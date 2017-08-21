@@ -1,0 +1,31 @@
+% chapter: numerical problems and solutions
+
+\section{Numerical problems and solutions}
+
+\begin{enumerate}[-]
+%====================================================================================
+\item \textit{Program stops because pressure gets too high.}
+
+Solution: This might indicate an awkward or inappropriate model setup. Try to lower the two pressure penalty factors from table~\ref{tbl:timestep_parameters} to $[0.5,0.3,0.1,0.001]$. If that doesn't help, try another model setup.
+%====================================================================================
+\item \textit{Timestep doesn't converge within the time-limit of the Brutus queue.}
+
+Solution: Use a longer queue, e.g. 24h-queue instead of the 8h-queue. If the problem still persists try one of the following:
+\begin{enumerate}[a)]
+\item Increase continuity equation error limit DIVMIN in tbl.~\ref{tbl:mode_v_p_parameters} to $3e{-3}$
+\item Decrease multinum1 and multinum2 in tbl.~\ref{tbl:timestep_parameters} to $3$.
+\item Increase both pressure penalty factors in tbl.~\ref{tbl:timestep_parameters}. Choose something along $[0.05,0.11,0.31,0.41]$.
+\item Decrease continuity equation error limit DIVMIN in tbl.~\ref{tbl:mode_v_p_parameters} to $1e{-3}$.
+\item Try the following configurations for the pressure penalty factors [p0koef,p1koef,p2koef,p3koef] = $[0.31,1.00,0,0]$ , $[0.41,1.00,0,0]$, $[0.11,0.50,0,0]$
+\item Make 4 v-cycles series. In tbl.~\ref{tbl:mode_v_p_parameters} set multicyc = $4$.
+\end{enumerate}
+%====================================================================================
+\item \textit{Unstable model, model goes into very fast convection}
+
+Solution: Try one of the following:
+\begin{enumerate}[a)]
+\item Decrease maximum timestep \textit{maxtkstep} from $500$ to $100$.
+\item Decrease maximum timestep \textit{maxtmstep} from $5e3$ to $1e3$.
+\item Increase lower viscosity limit from $10^{18}$ to $10^{19}$.
+\end{enumerate}
+\end{enumerate}

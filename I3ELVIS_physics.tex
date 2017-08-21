@@ -1,0 +1,281 @@
+% Part II - chapter 2: Methods
+
+\section{Physics}
+\label{chp:II_2}
+
+\subsection{Basic physical principals}
+
+\subsubsection{The continuity equation}
+
+% continuity equ.
+The continuity equation describes the conservation of mass, while it is displaced in a continuous medium. In its Lagrangian form it reads the following,
+
+\begin{equation}\label{eqs:cont_general}
+\dfrac{D \rho}{D t} + \rho \nabla\cdot\vec{v} = 0,
+\end{equation}
+
+where $\rho$ denotes material density, $\vec{v}$ denotes displacement velocity and $\dfrac{D}{D t}$ denotes the Lagrangian time derivative.
+
+For many geological media like the crust or the mantle, where temperature and pressure are not too large and no phase changes occur, which would lead to larger volume changes, one can assume the following \textit{incompressibility condition},
+
+\begin{equation}\label{eqs:imcompress}
+\dfrac{D \rho}{D t} = \dfrac{\partial \rho}{\partial t} +\vec{v} \nabla\rho = 0,
+\end{equation}
+
+which means that the density of material points does not change in time.
+
+This leads us to the following \textit{incompressible continuity equation}, which is the same in its Eulerian and Lagrangian form,
+
+\begin{equation}
+\nabla\cdot\vec{v}=0,
+\end{equation}
+
+The \textit{incompressible continuity equation} very widely used in numerical geodynamic modelling, although it is often a rather strong simplification.
+
+\subsubsection{The Navier-Stokes Euqation}
+
+The Navier-Stokes equation of motion in its full form reads the following,
+
+\begin{equation}\label{eqs:NS}
+\dfrac{\partial \sigma'_{ij}}{\partial x_j} - \dfrac{\partial P}{\partial x_i} + \rho g_i = \rho \dfrac{D v_i}{D t},
+\end{equation}
+
+where $\sigma_{ij}$ is the strain-rate and $\vec{g} = \left(g_x,g_y,g_z\right)$ is the gravity vector.
+
+In highly viscous flows the right-hand side of \eqref{eqs:NS}, the inertial forces $\rho \dfrac{D v_i}{D t}$, is much smaller compared to the gravitational force and therefore, be neglected. This leads to the \textit{Stokes equation for creeping flow},
+
+\begin{equation}\label{eqs:Stokes}
+\dfrac{\partial \sigma'_{ij}}{\partial x_j} - \dfrac{\partial P}{\partial x_i} + \rho g_i = 0.
+\end{equation}
+
+Under Boussinesq approximation the density is assumed to be constant, except in the buoyancy force term, where temperature and volatile content play an important role \citep{GeryaYuen2003}. Taking into account the Boussinesq approximation, density $\rho(T, P, c)$ in the buoyancy term $\rho g_i$ may vary locally as a function of temperature $T$, pressure $P$ and composition $c$,
+
+\begin{equation}\label{eqs:Boussinesq}
+\dfrac{\partial \sigma'_{ij}}{\partial x_j} - \dfrac{\partial P}{\partial x_i} = - \rho(T, P, c) g_i.
+\end{equation}
+
+\subsubsection{Heat conservation equation}
+
+The heat conservation equation, also called temperature equation, describes the heat balance in a convective medium, taking into account changes due to internal heat generation, advection and conduction. The Lagrangian heat conservation equation reads as follows,
+
+\begin{equation}
+\rho C_p \left(\dfrac{D T}{D t}\right) = - \nabla \cdot \vec{q} + H_r + H_a + H_s + H_L,
+\end{equation}
+
+with $\vec{q} = -k(T, p, c) \nabla T$, where thermal conductivity $k(T, P, c)$ depends on temperature, pressure and rock composition $c$. $H_r, H_a, H_s, H_L$ denote radioactive, adiabatic, shear and latent heating.
+
+Adiabatic and shear heating have shown to be important in many tectonic situations, which is why they are not taken as constant.
+
+\begin{subequations}\label{eqs:extendedBoussinesq}
+\begin{equation}
+H_r = const.
+\end{equation}
+\begin{equation}
+H_a = T \alpha \vec{v} \nabla P
+\end{equation}
+\begin{equation}
+H_s = \sigma'_{ij} \left(\dot{\epsilon}'_{ij} - \dot{\epsilon}_{ij(elastic)} \right)
+\end{equation}
+\begin{equation}
+H_L = const.
+\end{equation}
+\end{subequations}
+
+The resulting set of the above equations, together with equations \eqref{eqs:Boussinesq} and \eqref{eqs:extendedBoussinesq}, is called the extended Boussinesq approximations.
+
+\subsubsection{Rheology}
+
+\paragraph{Equation of State}
+% see code: mark3mg.c <dencalc()> l.945
+\begin{equation}\label{eqs:EOS}
+\rho = \rho_r  \left[ 1 + \beta \left( P - P_r \right) \right] \times \left[ 1 - \alpha \left( T - T_r \right) \right]
+\end{equation}
+where $\rho_r$ is the reference density given separately for each rock type, $P_r=1.0\,bar$ is the reference pressure, $T_r=298.15\,K$ is the reference temperature, $\alpha$ is the thermal expansion and $\beta$ is the compressibility.
+
+\paragraph{Viscosity}
+% see mark3mg.c <viscalc()>
+\paragraph{Plastic yield strength}
+\begin{equation}\label{eqs:mohr_coulomb}
+\sigma_{yield} = C + sin(\phi_{dry})(1-\lambda) P
+\end{equation}
+where $\sigma_{yield}$ denotes the shear stress limit after which plastic yielding occurs, $C$ is the cohesion, $\phi_{dry}$ is the effective internal friction angle in dry rock, $\lambda=1-\dfrac{P_{fluid}}{P_{solid}}$ is the pore fluid pressure factor and $P=P_{solid}$ is the mean stress of the solid.
+
+\paragraph{Peirl's creep (Katayamo \& Karato, 2008)}
+\begin{equation}\label{eqs:peirls_strain_rate}
+\dot{\epsilon}_{II} = A_{Peirl} \sigma_{II}^2 exp \left\lbrace -\dfrac{E_a + P V_a}{R T}  \left[ 1- \left( \dfrac{\sigma_{II}}{\sigma_{Peirl}} \right) ^k \right] ^q \right\rbrace
+\end{equation}
+
+\todo{No! Visco-plastic!}
+A visco-elasto-plastic rheology is employed, with the deviatoric strain-rate $\dot{\epsilon}'_{ij}$ being composed of the following components,
+
+\begin{equation}
+\dot{\epsilon}'_{ij} = \dot{\epsilon}'_{ij(viscous)} + \dot{\epsilon}'_{ij(elastic)} + \dot{\epsilon}'_{ij(plastic},
+\end{equation}
+
+where
+
+\begin{subequations}
+\begin{equation}
+\dot{\epsilon}'_{ij(viscous)} = \dfrac{1}{2 \eta} \sigma'_{ij},
+\end{equation}
+\begin{equation}
+\dot{\epsilon}'_{ij(elastic)} = \dfrac{1}{2 \mu} \dfrac{D \sigma'_{ij}}{D t},
+\end{equation}
+\begin{equation}
+\dot{\epsilon}'_{ij(plastic)} = \chi \dfrac{\partial G}{\partial \sigma'_{ij}} = \chi \dfrac{\sigma'_{ij}}{2 \sigma_{II}} \quad \text{for}\, G = \sigma_{II} = \sigma_{yield}.
+\end{equation}
+\end{subequations}
+
+where $\eta$ denotes viscosity, $\sigma'_{ij}$ denotes the deviatoric stress tensor, $\mu$ denotes the shear modulus, $G$ is the plastic potential, $\sigma_{yield}$ is yield strength, $\sigma_{II}=\sqrt{\frac{1}{2}\sigma_{ij}^{'2}}$ is second deviatoric stress invariant and $\chi$ is plastic potential.
+
+% stress and strain
+Generally the strain tensor $\epsilon_{ij}$ can be defined as a function of displacement $\vec{u} = (u_x, u_y, u_z)$,
+
+\begin{equation}\label{strain}
+\epsilon_{ij} = \dfrac{1}{2} \left(\dfrac{\partial u_i}{\partial x_j} + \dfrac{\partial u_j}{x_i}\right).
+\end{equation}
+and the second strain rate invariant is given by $\dot{\epsilon}_{II} = \sqrt{\frac{1}{2}\dot{\epsilon}_{ij}^{'2}}$
+
+The viscosity $\eta$ is defined as follows,
+
+\begin{equation}
+\eta = \left(\dfrac{2}{\sigma_{II}}\right)^{\left(n-1\right)}\dfrac{F^n}{A_D} exp{\left(\dfrac{E + P V}{R T}\right)},
+\end{equation}
+
+where $A_D, E, V$ and $n$ are experimentally defined flow parameters, $R$ is the gas constant and $F$ is a dimensionless factor depending on the type of experiment (triaxial compression, simple shear).
+
+The viscous constitutive relationship relates stress $\sigma_{ij}$ with strain $\epsilon_{ij}$,
+
+\begin{equation}
+\sigma'_{ij} = 2\eta \dot{\epsilon}'_{ij} + \delta_{ij} \eta_{bulk} \dot{\epsilon}_{kk}, 
+\end{equation}
+
+where $\sigma'_{ij}$ is the deviatoric stress, $\dot{\epsilon}'_{ij}$ is the deviatoric strain-rate, $\dot{\epsilon}_{kk}$ is the bulk strain-rate, and $\eta$ and $\eta_{bulk}$ are shear and bulk viscosity.
+
+\subsubsection{Impact treatment}
+
+The actual impact is not part of the model. The model only starts after the intrusion of the impactor into the parent body. Processes like crater excavation, redistribution of impactor and parent body material around the planet or decompression melting are not considered. A simplified model takes into account the thermal anomaly created by the impactor. A region called the isobaric core, of uniform temperature increase and shock pressure around the impactor can be found \citep{Senshu2002}.
+
+\begin{equation}
+R_{ic} = 3^{\dfrac{1}{3}} r_{imp}
+\end{equation}
+
+where $R_{ic}$ is the radius of the isobaric core and $r_{imp}$ is the radius of the impactor.
+
+Thermal anomaly in the isobaric core has been approximated by \citet{Monteux2007} in the following way,
+
+\begin{equation}
+\Delta T = \dfrac{4 \pi}{9} \dfrac{\psi}{F} \dfrac{\rho_P G R_P^2}{c_P}
+\end{equation}
+
+where $\psi$ is the efficiency of conversion of kinetic energy to thermal energy and in this thesis assumed to be $0.3$.
+
+Outside the isobaric core, for $r > R_{ic}$, the thermal anomaly $\Delta T$ is decaying exponentially, according to the following rule \citep{Senshu2002,Monteux2007},
+
+\begin{equation}
+T(r) = \Delta T \left(\dfrac{R_{ic}}{r}\right)^{4.4}
+\end{equation}
+
+%\subsubsection{Batch melting model for silicates}
+%
+%\subsubsection{Estimation of the effective thermal conductivity of the magma ocean}
+%
+%\subsubsection{Phase changes}
+%
+%\todo{want to do that?}
+
+\subsubsection{Computation of crust}
+\label{chp:II_2.1.7}
+
+This algorithm is only implemented in the 3D code.
+
+Silicate melt within a certain depth is positively buoyant ($d_{depthmelt}=2e5$) and rises up to the surface \citep{Golabek2011}. Only markers with a melt fraction between $1\%$ and $20\%$ are considered, as this corresponds roughly to the pyroxene fraction in a fertile mantle \citep{Golabek2011}. Silicate melt on markers fulfilling these criteria now percolates upwards through the mantle and at the surface crust is formed by freezing of the silicate melt. 
+
+\subsubsection{Phase transitions, melting and hydration reactions}
+
+\paragraph{Melting}
++20
+
+Melting occurs a soon as the melt fraction is larger than 0.
++20 is added to the type rock type (not for 11/13/31/33 and 19/20/21). A rock type >20 signifies that the material is partially molten.
+
+\paragraph{Freezing}
+-20
+
+If the melt fraction becomes 0, -20 is subtracted from the type (not for 11/13/31/33 and 19/20/21). A rock type <20 signifies that the material is fully solid.
+
+\paragraph{Hydrated Peridotite}
+11 -> 34 (-> 14) (and 31 -> 14)
+
+Hydrated wet mantle peridotite (type 11) can be molten (type 34) and resolidified again to quenched dry mantle peridotite (type 14).
+
+Hydrated, wet mantle peridotite (11) -> Molten Peridotite (34) -> Resolidified dry quenched mantle peridotite (14)
+
+(31 -> 14)
+
+\paragraph{Mantle hydration}
+[9,10,12,14] -> 11
+
+If water is present, lithospheric (type 9) and asthenospheric (type 10) peridotite as well as dry peridotite from the shear zone (type 12) and the resolidified quenched (type 14) peridotite are hydrated (type 11).
+
+\paragraph{Crust hydration}
+5/6 -> 17/18
+
+If water is present, continental upper (type 5) and lower (type 6) crust are hydrated (type 17+18).
+
+\paragraph{Layered Sedimentation}
+Sequence of 3,4,3,4,3,4,....
+
+\paragraph{Formation of new crust}
+-> 16
+
+\paragraph{Antigorite weakening}
+13 -> 11 (11 -> 13)
+
+Serpentinization of hydrated peridotite depending on Antigorite pressure and temperature field following \citep{Schmidt & Poli, 1998}
+
+\paragraph{Eclogitization}
+No type change.
+
+Happens for type 7/8 (upper/lower oc. crust) and 27/28 (molten upper/lower oc. crust).
+
+%
+%\subsubsection{Heat production in the crust}
+
+%\subsubsection{Solidus temperature}
+
+\subsection{I2ELVIS}
+
+To model two-dimensional creeping flow under extended Boussinesq approximation, with both thermal and chemical buoyancy, the conservative finite-difference code I2ELVIS \citep{GeryaYuen2003,Gerya2007} is used, which operates on a staggered grid and uses the moving marker technique. See also part~\ref{chp:I}, chapter~\ref{chp:I_2} for a more detailed discussion. Silicate material is assumed to have temperature-, pressure-, strain-rate and melt fraction-dependant visco-elasto-plastic rheology. Furthermore, impact heat, batch melting of silicates and phase changes have all been taken into account.
+
+\subsection{I3ELVIS}
+
+The 3D models have been carried out by the 3D numerical I3ELVIS \citep{Gerya2007} code which is also based on a conservative finite difference method with a marker-in-cell technique and multigrid solver \citep{GeryaYuen2003,Gerya2007}.  See also part~\ref{chp:I}, chapter~\ref{chp:I_2} for a more detailed discussion. Additionally, the 3D code also features impact heat, batch melting of silicates and phase changes as discussed in \citet{Golabek2011} for the 2D case. The initial thermal-chemical model setup (including initial conditions, boundary condition and fluid/melt transport mechanism) and numerical approach are kept as similar as possible to the 2D models. Furthermore, the 3D code also features computation of the primordial crust from silicate melt.
+
+\begin{table}[H]
+\small
+\centering
+\begin{tabular}{p{6cm} l l l}
+\toprule
+Parameter & Symbol & Value & Unit\\
+\midrule
+Radius of planetary body 			& $R_{Mars}$ 			& $3389$ 		& $km$\\
+Radius of impactor core 			& $r_{ic}$ 				& $232-500$ 	& $km$\\
+Radius of final core rel. to $R_{planet}$ & $r_{core}$ 		& $0.5$ 		& $\%$\\
+Temperature of impactor core 		& $T_{ic}$ 				& $1300-2300$	& $K$\\
+Temperature of protocore 			& $T_p$ 				& $1300-2500$	& $K$\\
+Temperature of diapirs 				& $T_d$ 				& $1300-2300$	& $K$\\
+Mean temperature of final core 		& $\bar{T}_c$ 			& $-$ 		& $K$\\
+Mean temperature of silicate mantle & $\bar{T}_m$ 			& $-$ 		& $K$\\
+Mean temperature of planetary body 	& $\bar{T}_{tot}$ 		& $-$ 		& $K$\\
+Mean density of final core			& $\bar{\rho}_c$ 		& $-$ 		& $kg\,m^{-3}$\\
+Mean density of silicate mantle 	& $\bar{\rho}_m$ 		& $-$ 		& $kg\,m^{-3}$\\
+Mean density of planetary body 		& $\bar{\rho}_{tot}$ 	& $-$ 		& $kg\,m^{-3}$\\
+Volume fraction of iron (3D)		& $f_{Fe,vol}$ 			& $0.1$ 		& $\%$\\
+Mass fraction of iron (3D)			& $f_{Fe,mass}$			& $0.2$			& $\%$\\
+Gravitational acceleration			& $g$					& $3.73$		& $m\,s^{-2}$\\
+\bottomrule
+\end{tabular}
+\caption{\textbf{TODO: complete table} List of parameters}
+\label{tbl:list_of_parameters}
+\end{table}

@@ -1,0 +1,166 @@
+% chapter: prn files
+
+\section{Raw output files: .prn}
+Valid for subduction/collision setup
+
+\subsection{Part I: General Information}
+\begin{table}[H]
+\small
+\centering
+\begin{tabular}{p{3cm} p{6cm} p{3cm} l}
+\toprule
+Parameter & Description & Initial value & Unit\\
+\midrule
+xnumx & Number of nodes in x & $16N+5$ (4 multigrid levels) & - \\
+ynumy & Number of nodes in y & $16N+5$ (4 multigrid levels) & - \\
+znumz & Number of nodes in z & $16N+5$ (4 multigrid levels) & - \\
+mnumx & Number markers per cell in x & - & - \\
+mnumy & Number markers per cell in y & - & - \\
+mnumz & Number markers per cell in z & - & - \\
+xsize & Dimension of model in x & - & $[m]$ \\
+ysize & Dimension of model in y & - & $[m]$ \\
+zsize & Dimension of model in z & - & $[m]$ \\
+pxinit & x-coordinate of initial pressure cell & $(xnumx-1)/2$ & - \\
+pyinit & y-coordinate of initial pressure cell & $(ynumy-1)/2$ & - \\
+pzinit & z-coordinate of initial pressure cell & - & - \\
+pinit & Initial pressure in initial pressure cell & - & $[Pa]$ \\
+GXKOEFF & Gravitational acceleration in x & - & $[m/s^2]$ \\
+GYKOEFF & Gravitational acceleration in y & - & $[m/s^2]$ \\
+GZKOEFF & Gravitational acceleration in z & - & $[m/s^2]$ \\
+rocknum & \\
+bondnum & \\
+marknum & \\
+n1 & \\
+timesum & Starting time & - & $[years]$ \\
+ival1 & \\
+gridcur & \\
+gridtot & \\
+\bottomrule
+\end{tabular}
+\caption{prn-file general information block}
+\label{tbl:prn_general_info}
+\end{table}
+
+\subsection{Part II: Rock type information
+}
+\begin{table}[H]
+\small
+\centering
+\begin{tabular}{l p{8cm} l}
+\toprule
+Parameter & Description & Unit\\
+\midrule
+markn0 & Individual lower viscosity limit & $[Pa*s]$ \\ 
+markn1 & Individual upper viscosity limit & $[Pa*s]$ \\ 
+marks0 & Individual lower stress limit & $[Pa]$ \\ 
+marks1 & Individual upper stress limit & $[Pa]$ \\ 
+marknu & Newtonian viscosity & $[Pa^{MM}*s]$ \\ 
+markdh & Activation energy & $[J]$\\ 
+markdv & Activation volume & $[J/bar]$ \\ 
+markss & Dislocation/diffusion creep stress threshold& $[Pa]$ \\ 
+markmm & Stress exponent & $(Power)$ \\ 
+markll & Pore fluid pressure factor & $(koef)$ \\ 
+marka0 & Cohesion & $[Pa]$ \\
+marka1 & Cohesion 2 & $[Pa]$ \\
+markb0 & Sine of dry friction angle & $[-]$ \\
+markb1 & Sine of dry friction angle 2 & $[-]$ \\
+marke0 & Lower strain threshold for brittle/ductile transition & $[-]$ \\
+marke1 & Upper strain threshold for brittle/ductile transition & $[-]$ \\ 
+markro & Density & $[kg/M^3]$ \\ 
+markbb & Density koef b & $[1/K]$ \\ 
+markaa & Density koef a & $[1/kbar]$\\ 
+markcp & Heat capacity  & $[J/kg]$ \\ 
+markkt & Thermal conductivity & $[W/(m*K)]$ \\ 
+markkf & Temperature dependency koef in conductivity & $[W/(m)]$ \\ 
+markkp & Pressure dependency koef in conductivity & $[Pa^{-1}]$ \\ 
+markht & heat generation & $[W/kg]$\\ 
+\bottomrule
+\end{tabular}
+\caption{prn-file Rock type information block, see also tbl~\ref{tbl:rock_type_parameters}.}
+\label{tbl:prn_rock_type_info}
+\end{table}
+
+\subsection{Part III: Nodes information}
+
+For each node the following parameters are given. The order is the following, where $n$ is the number of nodes $nodenum$: $${pr_0,vx_0,...ht_0,pr_1,..,ht_1,..,pr_n,..,ht_n}$$
+
+\begin{table}[H]
+\small
+\centering
+\begin{tabular}{l l p{2cm}}
+\toprule
+Parameter & Description & Unit\\
+\midrule
+pr & Pressure & $[Pa]$ \\ 
+vx & Velocity in x & $[m/s]$ \\ 
+vy & Velocity in y & $[m/s]$ \\ 
+vz & Velocity in z & $[m/s]$ \\ 
+ro & Density & $[kg/m^3]$ \\ 
+nu & Viscosity & $[Pa*s]$ \\ 
+tk & Temperature & $[K]$ \\ 
+cp & Heat capacity & $[J/kg]$ \\ 
+et & Thermal expansivity & $[1/K]$ \\ 
+kt & Thermal conductivity & $[Wt/m/K]$ \\
+ht  & Heat sources & $[Wt/kg]$ \\
+\bottomrule
+\end{tabular}
+\caption{prn-file Marker information block}
+\label{tbl:prn_marker_info}
+\end{table}
+
+\subsection{Part IV: Gridline positions}
+
+\paragraph{Position of gridlines in x direction} $xnumx$ numbers are given
+\paragraph{Position of gridlines in y direction }$ynumy$ numbers are given
+\paragraph{Position of gridlines in z direction} $znumz$ numbers are given
+
+\subsection{Part V: Boundary Condition Equations}
+
+For each boundary condition there $5$ values neede. The total number of boundary conditions is $bondnum$. The boundary conditions are all of the following general form:
+$$CURPAR = CONST + KOEF1*PAR1$$
+
+\begin{table}[H]
+\small
+\centering
+\begin{tabular}{l p{9cm}}
+\toprule
+Parameter & Description\\
+\midrule
+m2 & Index in Indexmatrix bondm\\ 
+m3 & Index in BC-matrices, saved in bondm \\ 
+bondv1[m3][0] &  $CONST$ value in BC equ. \\ 
+bondv1[m3][1] &  $KOEF1$ value in BC equ. \\ 
+bondn1[m3] & $PAR1+1$ value in BC equ., $PAR1=0$ means no boundary \\ 
+\bottomrule
+\end{tabular}
+\caption{prn-file Marker information block}
+\label{tbl:prn_marker_info}
+\end{table}
+
+\subsection{Part VI: Markers}
+
+The total number of markers is $marknum$. For each marker the following parameters is given:
+
+\begin{table}[H]
+\small
+\centering
+\begin{tabular}{l p{8cm}}
+\toprule
+Parameter & Description\\
+\midrule
+markx & Marker position in x \\ 
+marky & Marker position in y \\ 
+markz & Marker position in z \\ 
+markk & Temperature in K \\ 
+markw & Water percentage \\ 
+markd & Density \\ 
+markex & Accumulated meltfraction \\ 
+marktm & Creation time \\ 
+markc1 & Melt composition: Granitic part \\ 
+markc2 & Melt composition: Dacite part \\
+markt  & Rock type \\
+\bottomrule
+\end{tabular}
+\caption{prn-file Marker information block}
+\label{tbl:prn_marker_info}
+\end{table}

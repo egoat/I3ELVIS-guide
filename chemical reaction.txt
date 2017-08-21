@@ -1,0 +1,27 @@
+Possible chemical reactions:
+
+- crust hydration:
+5  -> 17
+6  -> 18
+
+- mantle hydration:
+9  -> 11
+10 -> 11
+12 -> 11
+14 -> 11
+
+- antigorite weakening:
+13 -> 11
+11 -> 13
+
+- melting
+m  ->(+20)-> m+20 (m<20, m<>11)
+
+- melting of hydrated peridotite
+11 ->(+13)-> 34
+
+- solidification
+m  -> m-20 (m>=20, m<>31)
+
+- solidification of hydrated peridotite
+31 -> 14
