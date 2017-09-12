@@ -21,6 +21,7 @@ abstract,		      % include if you want to use the abstract environment (if there
 %\usepackage[ngerman]{babel}   % german
 \usepackage[T1]{fontenc}      % enables "Umlaute" (not really needed for English)
 \usepackage[scaled=.90]{helvet}
+\usepackage{datetime}
 %----------------------
 % graphics
 \usepackage{graphicx}         	% package to include graphics (pdf, png, jpg)
@@ -35,6 +36,7 @@ abstract,		      % include if you want to use the abstract environment (if there
 \usepackage{amsfonts}         % for komplexere Formeln (Mengensymbole ...)
 \usepackage{amssymb}          % for komplexere Formeln (Mengensymbole ...)
 \usepackage{bm}               % bold math use \bm{}
+\usepackage{gensymb}
 
 %--------------------------------
 % other packages
@@ -132,6 +134,7 @@ abstract,		      % include if you want to use the abstract environment (if there
 \newcommand{\todo}[1]{\textbf{\textsc{\textcolor{red}{(TODO: #1)}}}}
 \newcommand{\pcode}[1]{\textcolor{blue}{#1}}
 \newcommand{\scode}[1]{\textcolor{olivegreen}{#1}}
+\newdateformat{monthyeardate}{\monthname[\THEMONTH] \THEYEAR}
 
 %-----------------------------------------------------------------------------------
 % STASRT OF THE ACTUAL DOCUMENT

@@ -1,7 +1,6 @@
 % Part II - chapter 2: Methods
 
 \section{Physics}
-\label{chp:II_2}
 
 \subsection{Basic physical principals}
 
@@ -48,7 +47,7 @@ In highly viscous flows the right-hand side of \eqref{eqs:NS}, the inertial forc
 \dfrac{\partial \sigma'_{ij}}{\partial x_j} - \dfrac{\partial P}{\partial x_i} + \rho g_i = 0.
 \end{equation}
 
-Under Boussinesq approximation the density is assumed to be constant, except in the buoyancy force term, where temperature and volatile content play an important role \citep{GeryaYuen2003}. Taking into account the Boussinesq approximation, density $\rho(T, P, c)$ in the buoyancy term $\rho g_i$ may vary locally as a function of temperature $T$, pressure $P$ and composition $c$,
+Under Boussinesq approximation the density is assumed to be constant, except in the buoyancy force term, where temperature and volatile content play an important role \citep{Gerya2003}. Taking into account the Boussinesq approximation, density $\rho(T, P, c)$ in the buoyancy term $\rho g_i$ may vary locally as a function of temperature $T$, pressure $P$ and composition $c$,
 
 \begin{equation}\label{eqs:Boussinesq}
 \dfrac{\partial \sigma'_{ij}}{\partial x_j} - \dfrac{\partial P}{\partial x_i} = - \rho(T, P, c) g_i.
@@ -162,7 +161,7 @@ R_{ic} = 3^{\dfrac{1}{3}} r_{imp}
 
 where $R_{ic}$ is the radius of the isobaric core and $r_{imp}$ is the radius of the impactor.
 
-Thermal anomaly in the isobaric core has been approximated by \citet{Monteux2007} in the following way,
+Thermal anomaly in the isobaric core has been approximated by \citet{Monteux2007c} in the following way,
 
 \begin{equation}
 \Delta T = \dfrac{4 \pi}{9} \dfrac{\psi}{F} \dfrac{\rho_P G R_P^2}{c_P}
@@ -170,7 +169,7 @@ Thermal anomaly in the isobaric core has been approximated by \citet{Monteux2007
 
 where $\psi$ is the efficiency of conversion of kinetic energy to thermal energy and in this thesis assumed to be $0.3$.
 
-Outside the isobaric core, for $r > R_{ic}$, the thermal anomaly $\Delta T$ is decaying exponentially, according to the following rule \citep{Senshu2002,Monteux2007},
+Outside the isobaric core, for $r > R_{ic}$, the thermal anomaly $\Delta T$ is decaying exponentially, according to the following rule \citep{Senshu2002,Monteux2007c},
 
 \begin{equation}
 T(r) = \Delta T \left(\dfrac{R_{ic}}{r}\right)^{4.4}
@@ -232,7 +231,7 @@ Sequence of 3,4,3,4,3,4,....
 \paragraph{Antigorite weakening}
 13 -> 11 (11 -> 13)
 
-Serpentinization of hydrated peridotite depending on Antigorite pressure and temperature field following \citep{Schmidt & Poli, 1998}
+Serpentinization of hydrated peridotite depending on Antigorite pressure and temperature field following \citep{Schmidt1998}
 
 \paragraph{Eclogitization}
 No type change.
@@ -246,11 +245,11 @@ Happens for type 7/8 (upper/lower oc. crust) and 27/28 (molten upper/lower oc. c
 
 \subsection{I2ELVIS}
 
-To model two-dimensional creeping flow under extended Boussinesq approximation, with both thermal and chemical buoyancy, the conservative finite-difference code I2ELVIS \citep{GeryaYuen2003,Gerya2007} is used, which operates on a staggered grid and uses the moving marker technique. See also part~\ref{chp:I}, chapter~\ref{chp:I_2} for a more detailed discussion. Silicate material is assumed to have temperature-, pressure-, strain-rate and melt fraction-dependant visco-elasto-plastic rheology. Furthermore, impact heat, batch melting of silicates and phase changes have all been taken into account.
+To model two-dimensional creeping flow under extended Boussinesq approximation, with both thermal and chemical buoyancy, the conservative finite-difference code I2ELVIS \citep{Gerya2003,Gerya2007} is used, which operates on a staggered grid and uses the moving marker technique. Silicate material is assumed to have temperature-, pressure-, strain-rate and melt fraction-dependant visco-elasto-plastic rheology. Furthermore, impact heat, batch melting of silicates and phase changes have all been taken into account.
 
 \subsection{I3ELVIS}
 
-The 3D models have been carried out by the 3D numerical I3ELVIS \citep{Gerya2007} code which is also based on a conservative finite difference method with a marker-in-cell technique and multigrid solver \citep{GeryaYuen2003,Gerya2007}.  See also part~\ref{chp:I}, chapter~\ref{chp:I_2} for a more detailed discussion. Additionally, the 3D code also features impact heat, batch melting of silicates and phase changes as discussed in \citet{Golabek2011} for the 2D case. The initial thermal-chemical model setup (including initial conditions, boundary condition and fluid/melt transport mechanism) and numerical approach are kept as similar as possible to the 2D models. Furthermore, the 3D code also features computation of the primordial crust from silicate melt.
+The 3D models have been carried out by the 3D numerical I3ELVIS \citep{Gerya2007} code which is also based on a conservative finite difference method with a marker-in-cell technique and multigrid solver \citep{Gerya2003,Gerya2007}. Additionally, the 3D code also features impact heat, batch melting of silicates and phase changes as discussed in \citet{Golabek2011} for the 2D case. The initial thermal-chemical model setup (including initial conditions, boundary condition and fluid/melt transport mechanism) and numerical approach are kept as similar as possible to the 2D models. Furthermore, the 3D code also features computation of the primordial crust from silicate melt.
 
 \begin{table}[H]
 \small

@@ -104,8 +104,8 @@ kt & Thermal conductivity & $[Wt/m/K]$ \\
 ht  & Heat sources & $[Wt/kg]$ \\
 \bottomrule
 \end{tabular}
-\caption{prn-file Marker information block}
-\label{tbl:prn_marker_info}
+\caption{prn-file Node information block}
+\label{tbl:prn_node_info}
 \end{table}
 
 \subsection{Part IV: Gridline positions}
@@ -116,7 +116,7 @@ ht  & Heat sources & $[Wt/kg]$ \\
 
 \subsection{Part V: Boundary Condition Equations}
 
-For each boundary condition there $5$ values neede. The total number of boundary conditions is $bondnum$. The boundary conditions are all of the following general form:
+For each boundary condition there are $5$ values needed. The total number of boundary conditions is $bondnum$. The boundary conditions are all of the following general form:
 $$CURPAR = CONST + KOEF1*PAR1$$
 
 \begin{table}[H]
@@ -133,8 +133,8 @@ bondv1[m3][1] &  $KOEF1$ value in BC equ. \\
 bondn1[m3] & $PAR1+1$ value in BC equ., $PAR1=0$ means no boundary \\ 
 \bottomrule
 \end{tabular}
-\caption{prn-file Marker information block}
-\label{tbl:prn_marker_info}
+\caption{prn-file boundary condition information block}
+\label{tbl:prn_bond_info}
 \end{table}
 
 \subsection{Part VI: Markers}
