@@ -381,19 +381,21 @@ Parameter & Description \\
 \midrule
 SAVEFILE & name of the file (if this name is non-unique, the file will be overwritten without warning) \\
 TYPE & file type: b = binary (no other supported) \\
-cyc0max & number of iterations \\
+cyc0max & number of repetitions done for each timestep \\
 maxxystep & maximum step size in dimension \todo{???} \\
 maxtkstep & maximum step size in temperature \todo{???} \\
 maxtmstep & maximum step size in time \todo{???} \\
 nubeg & global lower viscosity cut-off \\
 nuend & global upper viscosity cut-off \\
-p0koef & Pressure penalty factor 1, Relaxation parameter in Continuity equation \\
+p0koef & Pressure penalty factor, Relaxation parameter in Continuity equation \\
 p1koef & Pressure update interpolation from coarser multigrid levels \\
-p2koef & Pressure penalty factor 2 \todo{???} \\
-unused & - \\
+p2koef & Pressure penalty factor in inertia term, $p2koef=0$: no inertia, $p2koef\approx-\frac{2}{3}*p0koef$\\
+p0koef0 & Alternative for p0koef after switch multinum2\\
+p1koef1 & Alternative for p1koef after switch multinum2\\
+p2koef2 & Alternative for p2koef after switch multinum2\\
 multinum &  number of multigrid levels \\
-stp1 & number of iterations/ repeats for whole timestep \\
-multinum2 & number of multigrid levels 2 \todo{???} \\
+stp1 & number of iterations/cycles with \textit{multinum}, after stp1 cycles switch to \textit{multinum2}, \textit{p0koef1}, \textit{p1koef1}, \textit{p2koef1}\\
+multinum2 & number of multigrid levels 2, switched to after stp1 cycles\\
 \bottomrule
 \end{tabular}
 \caption{Timestep parameters}
