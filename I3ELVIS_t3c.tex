@@ -382,9 +382,9 @@ Parameter & Description \\
 SAVEFILE & name of the file (if this name is non-unique, the file will be overwritten without warning) \\
 TYPE & file type: b = binary (no other supported) \\
 cyc0max & number of repetitions done for each timestep \\
-maxxystep & maximum step size in dimension \todo{???} \\
-maxtkstep & maximum step size in temperature \todo{???} \\
-maxtmstep & maximum step size in time \todo{???} \\
+maxxystep & maximum step size in dimension \\
+maxtkstep & maximum step size in temperature \\
+maxtmstep & maximum step size in time \\
 nubeg & global lower viscosity cut-off \\
 nuend & global upper viscosity cut-off \\
 p0koef & Pressure penalty factor, Relaxation parameter in Continuity equation \\
@@ -474,8 +474,8 @@ multinnn 	& V-cycle structure: number of GS-iterations for each multigrid level 
 p0koef 		& Global pressure penalty factor 1, Relaxation parameter in Continuity equation; overwritten by separate timestep value & $3.0e{-01}$\\
 p1koef 		& Global pressure update interpolation from coarser multigrid level; overwritten by separate timestep value & $1.0e{-00}$\\
 p2koef 		& Global pressure penalty factor 2, Relaxation parameter in Continuity equation; overwritten by separate timestep value & $0.0e{-00}$\\
-v0koef 		& Velocity penalty facto. Relaxation parameter in vx-,vy-,vz-Stokes equation & $1.0e{-00}$\\
-v1koef 		& \todo{???} & $1.0e{-00}$\\
+v0koef 		& Velocity penalty factor. Relaxation parameter in vx-,vy-,vz-Stokes equation & $1.0e{-00}$\\
+v1koef 		& MG velocity relaxation parameter. Velocity field prolongation  & $1.0e{-00}$\\
 nubeg 		& global lower viscosity cut-off; overwritten by separate timestep value & $1e{+18}$\\
 nuend 		& global upper viscosity cut-off; overwritten by separate timestep value & $1e{+25}$\\
 nukoef 		& Average $\nu$ for pressure optimisation & $0.0$\\
@@ -517,11 +517,11 @@ HEATMIN 	& Temperature equation lower error bound & $1e{-4}$\\
 multinumt 	& Number of multigrid levels & $0$\\
 multicyct 	& Number of whole multigrid V-cycle iterations & $1$ \\
 multittt	& V-cycle structure: number of GS-iterations for each multigrid level in upcycle and downcycle & $1$; $0$ \\
-t0koef 		& \todo{???} & $1.0e{-00}$\\
-t1koef 		& \todo{???} & $1.0e{-00}$\\
-heatdif 	& \todo{???} & $1.0$\\
-frictyn 	& \todo{???} & $1$\\
-adiabyn 	& \todo{???} & $1$\\
+t0koef 		& Temperature penalty factor. Relaxation parameter in Continuity equation & $1.0e{-00}$\\
+t1koef 		& MG temperature relaxation parameter. Temperature field prolongation & $1.0e{-00}$\\
+heatdif 	& Numerical heat diffusion coefficient in subgrid diffusion & $1.0$\\
+frictyn 	& Switch viscous friction heat & $1$\\
+adiabyn 	& Switch adiabatic heat calculation & $1$\\
 \bottomrule
 \end{tabular}
 \caption{T iterations parameters}
@@ -542,18 +542,18 @@ zmpor 		& Maximum depth for porosity & $75000$\\
 vyfluid 	& Initial fluid velocity & $-3e{-09}$\\
 vymelt 		& Initial melt velocity & $-3e{-09}$\\
 dmwamin 	& Minimum water release difference & $1e{-1}$\\
-tdeep 		& \todo{???} & $1880.0$\\
-dtdeep 		& \todo{???} & $100.0$\\
-drdeep 		& \todo{???} & $000.0$\\
-zdeep 		& \todo{???} & $660000.0$\\
-vdeep		& \todo{???} & $670000.0$\\
-nudeep		& \todo{???} & $1e{+21}$\\
+tdeep 		& Bottom temperature reset & $1880.0$\\
+dtdeep 		& Tolerance for bottom temperature & $100.0$\\
+drdeep 		& Bottom density change & $000.0$\\
+zdeep 		& Depth for temperature reset & $660000.0$\\
+vdeep		& Depth for viscosity reset & $670000.0$\\
+nudeep		& Bottom viscosity reset & $1e{+21}$\\
 dxwater		& Fluid extension in x & $2e{+3}$\\
 dywater		& Fluid extension in y & $2e{+3}$\\
 dzwater		& Fluid extension in z & $2e{+3}$\\
 maxwater	& Maximum water content in peridotite melt & $5e{-1}$\\
-minmelt		& \todo{???} & $1e{-2}$\\
-maxmelt		& \todo{???} & $1e{-2}$\\
+minmelt		& Minimum remaining melt & $1e{-2}$\\
+maxmelt		& Maximum melt, start melt extraction & $1e{-2}$\\
 maxpmelt	& Maximum pressure for dry mantle melting & \\
 \bottomrule
 \end{tabular}
