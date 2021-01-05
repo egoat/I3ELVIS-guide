@@ -105,7 +105,8 @@ where $\sigma_{yield}$ denotes the shear stress limit after which plastic yieldi
 \end{equation}
 
 \todo{No! Visco-plastic!}
-A visco-elasto-plastic rheology is employed, with the deviatoric strain-rate $\dot{\epsilon}'_{ij}$ being composed of the following components,
+For I3ELVIS, elasticity has not yet been implemented, thus the implemented rheology in three dimensions is visco-plastic (time of writing: December 14, 2020).
+For I2ELVIS, a visco-elasto-plastic rheology is employed, with the deviatoric strain-rate $\dot{\epsilon}'_{ij}$ being composed of the following components,
 
 \begin{equation}
 \dot{\epsilon}'_{ij} = \dot{\epsilon}'_{ij(viscous)} + \dot{\epsilon}'_{ij(elastic)} + \dot{\epsilon}'_{ij(plastic},
@@ -126,7 +127,6 @@ where
 \end{subequations}
 
 where $\eta$ denotes viscosity, $\sigma'_{ij}$ denotes the deviatoric stress tensor, $\mu$ denotes the shear modulus, $G$ is the plastic potential, $\sigma_{yield}$ is yield strength, $\sigma_{II}=\sqrt{\frac{1}{2}\sigma_{ij}^{'2}}$ is second deviatoric stress invariant and $\chi$ is plastic potential.
-
 % stress and strain
 Generally the strain tensor $\epsilon_{ij}$ can be defined as a function of displacement $\vec{u} = (u_x, u_y, u_z)$,
 
