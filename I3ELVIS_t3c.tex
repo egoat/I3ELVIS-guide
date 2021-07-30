@@ -54,7 +54,7 @@ TYPE	& type of data output & b (= binary), no other supported & - \\
 
 \subsubsection{Rock type description}
 
-In the next part a table lists all possible types of material compositions together with there rheological properties.
+In the next part a table lists all possible types of material compositions together with their rheological properties.
 
 \begin{table}[H]
 \small
@@ -74,12 +74,12 @@ DV or markdv & Activation volume $V_a$ & $[J/bar]$ \\
 SS or markss & dislocation-diffusion transition stress $\sigma_{crit}$ & $[Pa]$ \\ 
 MM or markmm & Stress exponent for creep law & $(Power)$ \\ 
 LL or markll & Pore fluid pressure factor $1-\lambda$ (see eq.~\ref{eqs:mohr_coulomb}) & $(koef)$ \\ 
-a0 or marka0 & Cohesion (see eq.~\ref{eqs:mohr_coulomb}) & $[Pa]$ \\
-a1 or marka1 & unused & - \\
+a0 or marka0 & Cohesion before cohesion weakening (see eq.~\ref{eqs:mohr_coulomb}) & $[Pa]$ \\
+a1 or marka1 & Cohesion after cohesion weakening & - \\
 b0 or markb0 & Sinus of effective internal friction angle in dry rock (see eq.~\ref{eqs:mohr_coulomb}) & [deg°]/[rad] \\
-b1 or markb1 & unused & - \\
-e0 or marke0 & Koef in ductile rheology weakening \todo{???} & \todo{???} \\
-e1 or marke1 & Koef in ductile rheology weakening \todo{???} & \todo{???} \\ 
+b1 or markb1 & sin$(\phi)$ after strain weakening & - \\
+e0 or marke0 & Amount of strain marking beginning of strain weakening  & - \\
+e1 or marke1 & Amount of strain marking the end of strain weakening  & - \\ 
 RO or markro & Density & $[kg/M^3]$ \\ 
 bb or bRo or markbb & Thermal expansion $\alpha$ (see eq.\ref{eqs:EOS}) & $[1/K]$ \\ 
 aa or aRo or markaa & Compressibility $\beta$ (see eq.\ref{eqs:EOS}) & $[1/kbar]$\\ 
@@ -213,11 +213,11 @@ m20 & starting node position in y &  \\
 m21 & ending node position in y &  \\ 
 m30 & starting node position in z. &  \\ 
 m31 & ending node position in z &  \\ 
-Const &  &  \\ 
-Koef &  &  \\ 
-nshiftx &  &  \\ 
-nshifty &  &  \\ 
-nshiftz &  &  \\ 
+Const & boundary value &  \\ 
+Koef &  multiplier for boundary velocity & [0,1] \\ 
+nshiftx & determines which x-node is used to calculate value at next node & -1, +0 or +1 \\ 
+nshifty & determines which y-node is used to calculate value at next node & -1, +0 or +1 \\ 
+nshiftz & determines which z-node is used to calculate value at next node & -1, +0 or +1 \\ 
 Koef1 &  &  \\ 
 nshiftx1 & Ignored if Koef1 is 0 &  \\ 
 nshifty1 & Ignored if Koef1 is 0 &  \\ 
@@ -269,7 +269,14 @@ markx= x + \dfrac{rand() \% \left(\lfloor Const \rfloor *2+1\right)-\lfloor Cons
 Random nonstability is set in $Y$ for $Koef1>0$ and in $Z$ for $Koef2>0$ in the same way.
 
 \subsubsection{Box description}
-Arbitrary shapes of cubes are prescribed by setting the (x,y,z) coordinate of each of the 8 corners.
+Arbitrary shapes of cubes are prescribed by setting the (x,y,z) coordinate of each of the 8 corners (Figure \ref{fig:cube}).
+
+\begin{figure}
+    \centering
+    \includegraphics{Illustrations/i3elviscube.png}
+    \caption{Illustration of the faces of the cube referred to in Tables \ref{tbl:box_parameters} and \ref{tbl:t_box_parameters}.}
+    \label{fig:cube}
+\end{figure}
 
 \begin{table}[H]
 \centering
@@ -305,7 +312,7 @@ ______0_m15000_1___0__1.1__1_____1.1_m15000_1_____1.1_1.1__1
 \end{lstlisting}
 
 \subsubsection{Temperature box description}
-Arbitrary shapes of cubes are prescribed by setting the (x,y,z) coordinate of each of the 8 corners.
+Arbitrary shapes of cubes are prescribed by setting the (x,y,z) coordinate of each of the 8 corners (Figure \ref{fig:cube}).
 
 \begin{table}[H]
 \centering
@@ -382,9 +389,9 @@ Parameter & Description \\
 SAVEFILE & name of the file (if this name is non-unique, the file will be overwritten without warning) \\
 TYPE & file type: b = binary (no other supported) \\
 cyc0max & number of iterations \\
-maxxystep & maximum step size in dimension \todo{???} \\
-maxtkstep & maximum step size in temperature \todo{???} \\
-maxtmstep & maximum step size in time \todo{???} \\
+maxxystep & maximum change in x,y,z in one timestep  \\
+maxtkstep & maximum step size in temperature \ \\
+maxtmstep & maximum step size in time \\
 nubeg & global lower viscosity cut-off \\
 nuend & global upper viscosity cut-off \\
 p0koef & Pressure penalty factor 1, Relaxation parameter in Continuity equation \\

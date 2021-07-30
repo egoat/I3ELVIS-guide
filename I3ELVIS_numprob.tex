@@ -28,4 +28,30 @@ Solution: Try one of the following:
 \item Decrease maximum timestep \textit{maxtmstep} from $5e3$ to $1e3$.
 \item Increase lower viscosity limit from $10^{18}$ to $10^{19}$.
 \end{enumerate}
+
+%===============================================================================
+\item \textit{Program stops because of $NaN$ velocities.}
+
+
+Solution: Try one of the following:
+
+\begin{enumerate}[a)]
+    \item In case you are using a low resolution, with few nodes in any direction (< 181), check the amount of cores your job is using on Euler. If this is larger than 2, you are probably getting NaN velocities because of a bug in the solver where parallellisation fails (processors start to compete on coarsest mutligrid levels). Taras says it's in theory fixable, but for now it doesn't work. Try running the job on 2 cores. 
+    \item Reconsider the volume balancing. \\
+To conserve mass, material coming in needs to be balanced by material going out of the box (air and non-air):
+\begin{equation}\label{eqs:fluxes}
+    V_{in} = \sum{A_{app} * \Bar{v}}
+\end{equation}
+where $A_{app}$ is the area where the (average) velocity $\Bar{v}$ is applied. Sticky air surplus or deficits (the net in- or outflow of air) must be compensated by assigning a flux at the upper boundary (deficit divided by area of model box). Likewise, net non-air fluxes must be balanced by in- or outgoing fluxes at the lower boundary, usually with asthenosphere. Especially important in this aspect is if you are using a permeable lower boundary, signified by a $Koef$ of 0.99 in the /Lower\_bondary part of the initfile. In that case, do the following to calculate the flux at the lower boundary:
+\begin{enumerate}
+    \item Add a virtual 99 nodes to the nodes in the y direction, e.g. 101 -> 200. Your new ysize will be 400 instead of 200 km if you're using a 2 km resolution. 
+    \item Calculate the net inflow of non-air material follwing equation \ref{eqs:fluxes}
+    \item Divide the net inflow of non-air material by the horizontal surface area (xsize * ysize). This value is the flux at the bottom of the 99 "extra nodes" below the lower boundary
+    \item Divide this answer by 100 to get the outflow at the actual lower boundary
+\end{enumerate}
+
+\item If you changed the model resolution with respect to your previous setup, check if the external grid uses the new resolution, and don't forget to modify the step100 parameter in \textit{mode.t3c}, which needs to be 4.5 times the x-resolution. 
+
+\end{enumerate}  
+
 \end{enumerate}
